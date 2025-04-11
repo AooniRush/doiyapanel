@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>モード変更画面</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
@@ -19,6 +19,26 @@
 
     h1 {
       margin-bottom: 30px;
+    }
+
+    .greeting {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 16px;
+      color: white;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     .grid {
@@ -45,30 +65,6 @@
       transform: scale(1.05);
     }
 
-    .header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      position: absolute;
-      top: 0;
-    }
-
-    #greeting {
-      font-size: 20px;
-      text-align: center;
-    }
-
-    .logout-btn {
-      background-color: red;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
     .toast {
       position: fixed;
       top: 20px;
@@ -80,39 +76,45 @@
       display: none;
     }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script>
-    // 挨拶文の変更（時間帯に応じた敬語）
-    function getGreeting() {
-      const now = new Date();
-      const hours = now.getHours();
-      let greeting;
-
-      if (hours < 12) {
-        greeting = "おはようございます";
-      } else if (hours < 18) {
-        greeting = "こんにちは";
-      } else {
-        greeting = "こんばんは";
-      }
-
-      const userName = sessionStorage.getItem("userName") || "ゲスト";
-      return `${greeting}、${userName}さん。`;
-    }
-
-    window.onload = function() {
-      // あいさつ文を表示
-      document.getElementById("greeting").textContent = getGreeting();
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXKTCZT9fE9slC1fbZk36OoyHt_4LkN28",
+      authDomain: "aoonigokkoauth.firebaseapp.com",
+      projectId: "aoonigokkoauth",
+      storageBucket: "aoonigokkoauth.firebasestorage.app",
+      messagingSenderId: "460906205657",
+      appId: "1:460906205657:web:3d0237157dadebddd549c8"
     };
 
-    // ログアウト処理
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // ログイン状態の確認
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const greetingMessage = `おはようございます、${user.displayName || 'ユーザーさん'}`;
+        document.getElementById('greeting').textContent = greetingMessage;
+      } else {
+        window.location.href = 'index.html'; // ログインしていなければ、ログイン画面にリダイレクト
+      }
+    });
+
     function logout() {
-      sessionStorage.removeItem("userName");
+      auth.signOut().then(() => {
+        window.location.href = 'index.html'; // ログアウト後、index.htmlにリダイレクト
+      });
+    }
+
+    // リファラーチェック
+    const allowedReferrer = "https://aoonirush.github.io/index.html";
+    if (document.referrer !== allowedReferrer) {
       window.location.href = "index.html";
     }
 
-    // モードのコマンド送信
     function sendCommand(command, redirectTo) {
-      fetch("https://mc.enderserver.jp:40017/execute-command", {
+      fetch("https://mc.enderserver.jp:40015/execute-command", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -143,10 +145,8 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <div id="greeting"></div>
-    <button class="logout-btn" onclick="logout()">ログアウト</button>
-  </div>
+  <div class="greeting" id="greeting">おはようございます、ゲストさん</div>
+  <button class="logout-btn" onclick="logout()">ログアウト</button>
 
   <h1>モード変更画面</h1>
   <div class="grid">
@@ -160,7 +160,6 @@
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
   </div>
-
   <div class="toast"></div>
 </body>
 </html>
