@@ -79,74 +79,28 @@
       display: none;
     }
   </style>
-  <script>
-    const auth = firebase.auth();
-
-    // ページが読み込まれたときにログイン状態を確認
-    window.onload = function() {
-      auth.onAuthStateChanged(user => {
-        if (!user) {
-          // ログインしていない場合、index.htmlにリダイレクト
-          window.location.href = 'index.html';
-        } else {
-          // ログインしている場合は挨拶を表示
-          document.getElementById('greeting').textContent = getGreeting(user);
-        }
-      });
-    };
-
-    function getGreeting(user) {
-      const hour = new Date().getHours();
-      let greeting = "こんにちは";
-
-      if (hour < 12) {
-        greeting = "おはようございます";
-      } else if (hour >= 18) {
-        greeting = "こんばんは";
-      }
-
-      const userName = user.email.split('@')[0];
-      return `${greeting}, ${userName}さん`;
-    }
-
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = 'index.html'; // ログアウト後にindex.htmlに遷移
-      }).catch((error) => {
-        alert("ログアウト失敗: " + error.message);
-      });
-    }
-
-    function sendCommand(command, redirectTo) {
-      fetch("https://mc.enderserver.jp:40017/execute-command", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ command })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("送信失敗");
-        showToast("コマンドが実行されました");
-        setTimeout(() => {
-          window.location.href = redirectTo;
-        }, 1000);
-      })
-      .catch(() => {
-        showToast("コマンド送信に失敗しました", true);
-      });
-    }
-
-    function showToast(message, isError = false) {
-      const toast = document.querySelector(".toast");
-      toast.textContent = message;
-      toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
-      toast.style.display = "block";
+ <script>
+  function goToMode(command, url) {
+    sessionStorage.setItem("fromPanel", "true");
+    fetch("https://mc.enderserver.jp:40017/execute-command", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ command })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("送信失敗");
+      showToast("コマンドが実行されました");
       setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    }
-  </script>
+        window.location.href = url;
+      }, 1000);
+    })
+    .catch(() => {
+      showToast("コマンド送信に失敗しました", true);
+    });
+  }
+</script>
 </head>
 <body>
   <!-- 挨拶文を表示 -->
