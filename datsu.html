@@ -87,39 +87,39 @@
     }
   </style>
 
-  <script>
-    const allowedReferrer = "https://aoonirush.github.io/panel.html";
-    if (document.referrer !== allowedReferrer) {
-      window.location.href = "panel.html";
-    }
+<script>
+  const allowedReferrer = "panel.html";
+  if (!document.referrer.includes(allowedReferrer)) {
+    window.location.href = "panel.html";
+  }
 
-    function sendCommand(command) {
-      fetch("https://mc.enderserver.jp:40015/execute-command", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ command })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("送信失敗");
-        showToast("コマンドが実行されました");
-      })
-      .catch(() => {
-        showToast("コマンド送信に失敗しました", true);
-      });
-    }
+  function sendCommand(command) {
+    fetch("https://mc.enderserver.jp:40017/execute-command", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ command })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("送信失敗");
+      showToast("コマンドが実行されました");
+    })
+    .catch(() => {
+      showToast("コマンド送信に失敗しました", true);
+    });
+  }
 
-    function showToast(message, isError = false) {
-      const toast = document.querySelector(".toast");
-      toast.textContent = message;
-      toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
-      toast.style.display = "block";
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    }
-  </script>
+  function showToast(message, isError = false) {
+    const toast = document.querySelector(".toast");
+    toast.textContent = message;
+    toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
+    toast.style.display = "block";
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 3000);
+  }
+</script>
 </head>
 <body>
   <div class="top-bar">
