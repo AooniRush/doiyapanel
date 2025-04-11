@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>モード変更画面</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #2c3e50, #3498db);
       color: white;
       display: flex;
@@ -15,6 +15,29 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+    }
+
+    .header {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .greeting {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .logout-button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     h1 {
@@ -45,29 +68,6 @@
       transform: scale(1.05);
     }
 
-    .greeting {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 18px;
-      color: white;
-    }
-
-    .logout-button {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .logout-button:hover {
-      background-color: darkred;
-    }
-
     .toast {
       position: fixed;
       top: 20px;
@@ -79,39 +79,82 @@
       display: none;
     }
   </style>
- <script>
-  function goToMode(command, url) {
-    sessionStorage.setItem("fromPanel", "true");
-    fetch("https://mc.enderserver.jp:40017/execute-command", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ command })
-    })
-    .then(res => {
-      if (!res.ok) throw new Error("送信失敗");
-      showToast("コマンドが実行されました");
-      setTimeout(() => {
-        window.location.href = url;
-      }, 1000);
-    })
-    .catch(() => {
-      showToast("コマンド送信に失敗しました", true);
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAXKTCZT9fE9slC1fbZk36OoyHt_4LkN28",
+      authDomain: "aoonigokkoauth.firebaseapp.com",
+      projectId: "aoonigokkoauth",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // index.html からの遷移チェック
+    if (sessionStorage.getItem("fromIndex") !== "true") {
+      window.location.href = "index.html";
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        const email = user.email || "ユーザー";
+        const name = email.split("@")[0];
+        const hour = new Date().getHours();
+        const greeting =
+          hour < 12 ? "おはよう" :
+          hour < 18 ? "こんにちは" : "こんばんは";
+        document.getElementById("greeting").textContent = `${greeting}、${name} さん`;
+      }
     });
-  }
-</script>
+
+    function logout() {
+      auth.signOut().then(() => {
+        sessionStorage.clear();
+        window.location.href = "index.html";
+      });
+    }
+
+    function sendCommand(command, redirectTo) {
+      fetch("https://mc.enderserver.jp:40015/execute-command", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("送信失敗");
+        showToast("コマンドが実行されました");
+        sessionStorage.setItem("fromPanel", "true");
+        setTimeout(() => {
+          window.location.href = redirectTo;
+        }, 1000);
+      })
+      .catch(() => {
+        showToast("コマンド送信に失敗しました", true);
+      });
+    }
+
+    function showToast(message, isError = false) {
+      const toast = document.querySelector(".toast");
+      toast.textContent = message;
+      toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+    }
+  </script>
 </head>
 <body>
-  <!-- 挨拶文を表示 -->
-  <div class="greeting" id="greeting"></div>
-  
-  <!-- ログアウトボタン -->
-  <button class="logout-button" onclick="logout()">ログアウト</button>
+  <div class="header">
+    <div id="greeting" class="greeting">読み込み中...</div>
+    <button class="logout-button" onclick="logout()">ログアウト</button>
+  </div>
 
   <h1>モード変更画面</h1>
   <div class="grid">
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datsu', 'datsu.html')">だつ</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datu', 'datsu.html')">だつ</div>
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')">ごっこ</div>
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')">ごっこ2</div>
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')">はこ</div>
@@ -121,7 +164,6 @@
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
     <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
   </div>
-  
   <div class="toast"></div>
 </body>
 </html>
