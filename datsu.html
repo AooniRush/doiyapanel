@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>だつモード</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>だつ - モード</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #2c3e50, #3498db);
       color: white;
-      padding: 20px;
-    }
-
-    .top-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 40px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
-    .mode-info {
-      font-size: 20px;
+    .header {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
     }
 
-    .back-button {
+    .logout-button {
       background-color: #e74c3c;
-      border: none;
-      padding: 10px 20px;
-      font-size: 14px;
       color: white;
-      border-radius: 8px;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .command-grid {
+    .mode-header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .mode-description {
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
+      margin-top: 100px;
     }
 
-    .command-box {
+    .mode-box {
       background-color: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       border-radius: 12px;
@@ -53,8 +71,8 @@
       transition: 0.2s ease;
     }
 
-    .command-box:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+    .mode-box:hover {
+      background-color: rgba(255, 255, 0, 0.3);
       transform: scale(1.05);
     }
 
@@ -70,20 +88,15 @@
     }
   </style>
   <script>
-    // panel.html からのアクセスのみ許可
-    const fromPanel = sessionStorage.getItem("fromPanel");
-    if (fromPanel !== "true") {
+    // パネルからの遷移確認
+    if (sessionStorage.getItem("fromPanel") !== "true") {
       window.location.href = "panel.html";
-    } else {
-      sessionStorage.removeItem("fromPanel");
     }
 
     function sendCommand(command) {
       fetch("https://mc.enderserver.jp:40015/execute-command", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ command })
       })
       .then(res => {
@@ -107,20 +120,18 @@
   </script>
 </head>
 <body>
-  <div class="top-bar">
-    <div class="mode-info">
-      <h2>だつモード</h2>
-      <p>このモードでは、プレイヤーが...（必要に応じて説明を追加）</p>
-    </div>
-    <button class="back-button" onclick="window.location.href='panel.html'">パネルに戻る</button>
+  <div class="header">
+    <button class="logout-button" onclick="window.location.href='panel.html'">パネルに戻る</button>
   </div>
 
-  <div class="command-grid">
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">20人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">60人モード</div>
-  </div>
+  <div class="mode-header">だつモード</div>
+  <div class="mode-description">だつモードの説明がここに入ります。ゲームの詳細やルールを説明します。</div>
 
+  <div class="grid">
+    <div class="mode-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
+    <div class="mode-box" onclick="sendCommand('function fille:start/select_mode_20')">20人モード</div>
+    <div class="mode-box" onclick="sendCommand('function fille:start/select_mode_60')">60人モード</div>
+  </div>
   <div class="toast"></div>
 </body>
 </html>
