@@ -22,31 +22,38 @@
       justify-content: flex-end;
       position: relative;
       z-index: 2;
+      margin-top: 30px;
     }
 
     /* 左右の図形 */
     .side-box {
       background-color: #121c35;
-      width: 352px;
-      height: 676px;
+      height: 100%;
       border-radius: 30px;
       position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       z-index: 1;
     }
 
     .left-box {
-      left: -176px; /* 左側を半分伸ばして配置 */
-      top: 50%;
-      transform: translateY(-50%);
+      left: 0;
+      width: 30%; /* 左側の幅を30%に調整 */
     }
 
     .right-box {
-      right: -176px; /* 右側を半分伸ばして配置 */
-      top: 50%;
-      transform: translateY(-50%);
+      right: 0;
+      width: 30%; /* 右側の幅を30%に調整 */
     }
 
-    /* ボタン */
+    /* 横並びのボタン */
+    .button-container {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      margin-top: 20px;
+    }
+
     .command-button {
       border: 2px solid #5a7156;
       color: #5a7156;
@@ -56,7 +63,6 @@
       font-size: 1.25rem; /* フォントサイズ */
       font-weight: bold;
       transition: all 0.3s ease;
-      margin-bottom: 10px; /* ボタン間のスペース */
     }
 
     .command-button:hover {
@@ -73,7 +79,7 @@
 
   <!-- 中央の図形とボタン -->
   <div class="main-box">
-    <div id="buttons-container" class="flex flex-col items-center justify-center space-y-4"></div>
+    <div class="button-container" id="buttons-container"></div>
   </div>
   
   <script>
