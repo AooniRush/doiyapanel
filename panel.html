@@ -25,8 +25,17 @@
     .side-box {
       background-color: #121c35;
       width: 320px;
-      height: 444px;
+      height: calc(100vh - 80px);
       border-radius: 30px;
+      margin-bottom: 40px;
+    }
+
+    .left-box {
+      margin-right: 40px;
+    }
+
+    .right-box {
+      margin-left: 40px;
     }
 
     .button-container {
@@ -41,9 +50,9 @@
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 8px;
-      padding: 1.25rem 2rem;
-      font-size: 1.125rem;
+      border-radius: 12px;
+      padding: 1.5rem 2.5rem;
+      font-size: 1.25rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -60,7 +69,7 @@
   <div class="flex items-center justify-between w-[90%] max-w-[1600px]">
 
     <!-- 左図形 -->
-    <div class="side-box"></div>
+    <div class="side-box left-box"></div>
 
     <!-- 中央の図形とボタン -->
     <div class="main-box">
@@ -68,10 +77,10 @@
     </div>
 
     <!-- 右図形 -->
-    <div class="side-box"></div>
+    <div class="side-box right-box"></div>
 
   </div>
-  
+
   <script>
     const buttons = [
       { label: "ログインカウント", command: "login" },
