@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>だつ - ゲームモード</title>
+  <title>だつモード</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -47,6 +47,13 @@
       gap: 20px;
       padding: 10px;
       margin-top: 10px;
+      align-items: flex-start;
+    }
+
+    .command-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .command-box {
@@ -65,24 +72,6 @@
       transform: scale(1.05);
     }
 
-    .extra-box {
-      position: fixed;
-      bottom: 30px;
-      left: 30px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 2px solid white;
-      border-radius: 12px;
-      padding: 20px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .extra-box:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-
     .toast {
       position: fixed;
       top: 20px;
@@ -95,13 +84,12 @@
     }
   </style>
   <script>
-    // 遷移元確認
     if (!sessionStorage.getItem('fromPanel')) {
       window.location.href = 'panel.html';
     }
 
     function sendCommand(command) {
-      fetch("https://mc.enderserver.jp:40017/execute-command", {
+      fetch("https://mc.enderserver.jp:40015/execute-command", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -135,12 +123,22 @@
   </div>
 
   <div class="command-grid">
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_20')">20人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_60')">60人モード</div>
-  </div>
+    <!-- 左列（スタート + 館の清掃） -->
+    <div class="command-column">
+      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
+      <div class="command-box" onclick="sendCommand('function fille:start/select_field_clear')">館の清掃</div>
+    </div>
 
-  <div class="extra-box" onclick="sendCommand('say extra')">追加コマンド</div>
+    <!-- 中列 -->
+    <div class="command-column">
+      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">リセット</div>
+    </div>
+
+    <!-- 右列 -->
+    <div class="command-column">
+      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">ヘルプ</div>
+    </div>
+  </div>
 
   <div class="toast"></div>
 </body>
