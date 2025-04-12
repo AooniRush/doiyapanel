@@ -28,8 +28,8 @@
       color: #5a7156;
       background-color: transparent;
       border-radius: 9999px;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.9rem;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -42,17 +42,17 @@
 </head>
 <body class="flex items-center justify-center h-screen">
 
-  <div class="flex items-start justify-center w-full max-w-screen-xl px-4 space-x-4">
+  <div class="flex items-start justify-center w-full max-w-screen-xl px-2 space-x-2">
     <!-- 左の図形 -->
-    <div class="side-box flex-1 max-w-[300px]"></div>
+    <div class="side-box flex-1 max-w-[420px]"></div>
 
     <!-- 中央の図形とボタン -->
     <div class="main-box flex flex-col items-center justify-end">
-      <div id="buttons-container" class="flex mb-8 space-x-10"></div>
+      <div id="buttons-container" class="flex mb-6 space-x-6"></div>
     </div>
 
     <!-- 右の図形 -->
-    <div class="side-box flex-1 max-w-[300px]"></div>
+    <div class="side-box flex-1 max-w-[420px]"></div>
   </div>
 
   <script>
@@ -62,7 +62,7 @@
       { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
 
-    const container = document.getElementById('buttons-container');
+const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
       const buttonEl = document.createElement('button');
