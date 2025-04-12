@@ -83,6 +83,28 @@
       display: none;
     }
   </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div id="greeting" class="greeting">読み込み中...</div>
+    <button class="logout-button" onclick="logout()">ログアウト</button>
+  </div>
+
+  <h1>モード変更画面</h1>
+  <div class="grid">
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datsu', 'datsu.html')">だつ</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')">ごっこ</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')">ごっこ2</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')">はこ</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_ito', 'ito.html')">いと</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_jinro', 'jinro.html')">ごっこ人狼</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kaku', 'kakure.html')">かくれ</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
+    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
+  </div>
+
+  <div class="toast"></div>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
@@ -96,29 +118,34 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    const ref = document.referrer;
-    const fromIndex = sessionStorage.getItem("fromIndex");
-    if (!(ref.includes("index.html") || fromIndex === "true")) {
-      window.location.href = "index.html";
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      auth.onAuthStateChanged(user => {
+        if (!user) {
+          // 未ログインならリダイレクト
+          window.location.href = "index.html";
+          return;
+        }
 
-    auth.onAuthStateChanged(user => {
-      if (user) {
+        // 遷移元の確認（index.html か sessionStorage のフラグ）
+        const ref = document.referrer;
+        const fromIndex = sessionStorage.getItem("fromIndex");
+        if (!(ref.includes("index.html") || fromIndex === "true")) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        // あいさつと名前の表示
         const name = user.email.split("@")[0];
         const hour = new Date().getHours();
         let greeting = "こんにちは";
-
         if (hour < 12) greeting = "おはようございます";
         else if (hour >= 18) greeting = "こんばんは";
-
-        document.getElementById("greeting").textContent = `${greeting、${name}さん`;
-      } else {
-        window.location.href = "index.html";
-      }
+        document.getElementById("greeting").textContent = `${greeting}、${name}さん`;
+      });
     });
 
     function logout() {
-      auth.signOut().then(() => {
+      firebase.auth().signOut().then(() => {
         sessionStorage.removeItem("fromIndex");
         window.location.href = "index.html";
       });
@@ -152,25 +179,5 @@
       }, 3000);
     }
   </script>
-</head>
-<body>
-  <div class="top-bar">
-    <div id="greeting" class="greeting">読み込み中...</div>
-    <button class="logout-button" onclick="logout()">ログアウト</button>
-  </div>
-
-  <h1>モード変更画面</h1>
-  <div class="grid">
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datu', 'datsu.html')">だつ</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')">ごっこ</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')">ごっこ2</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')">はこ</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_ito', 'ito.html')">いと</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_jinro', 'jinro.html')">ごっこ人狼</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kaku', 'kakure.html')">かくれ</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
-    <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
-  </div>
-  <div class="toast"></div>
 </body>
 </html>
