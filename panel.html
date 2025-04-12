@@ -19,16 +19,16 @@
 
     .side-box {
       background-color: #121c35;
-      height: 544px; /* 中央より100px高く */
+      height: 564px; /* 少し高くした */
       border-radius: 30px;
     }
 
     .side-left {
-      transform: translateX(-25%) scaleX(1.2);
+      transform: translateX(-30%) scaleX(1.25);
     }
 
     .side-right {
-      transform: translateX(25%) scaleX(1.2);
+      transform: translateX(30%) scaleX(1.25);
     }
 
     .command-button {
@@ -38,30 +38,7 @@
       border-radius: 9999px;
       padding: 0.25rem 0.75rem;
       font-size: 0.75rem;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
 
-    .command-button:hover {
-      background-color: #5a7156;
-      color: white;
-    }
-  </style>
-</head>
-<body class="flex items-center justify-center h-screen">
-
-  <div class="flex items-end justify-center w-full max-w-screen-xl px-2 space-x-2">
-    <!-- 左の図形（外側へ広げ、下へ伸ばす） -->
-    <div class="side-box flex-1 max-w-[420px] side-left"></div>
-
-    <!-- 中央の図形とボタン -->
-    <div class="main-box flex flex-col items-center justify-end">
-      <div id="buttons-container" class="flex mb-6 space-x-6"></div>
-    </div>
-
-    <!-- 右の図形（外側へ広げ、下へ伸ばす） -->
-    <div class="side-box flex-1 max-w-[420px] side-right"></div>
-  </div>
 
   <script>
     const buttons = [
@@ -70,7 +47,7 @@
       { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
 
-    const container = document.getElementById('buttons-container');
+   const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
       const buttonEl = document.createElement('button');
@@ -82,22 +59,16 @@
 
     async function sendCommand(cmd) {
       try {
-        const res = await fetch('https://mc.enderserver.jp:40017/execute-command', {
+        await fetch('https://mc.enderserver.jp:40017/execute-command', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ command: cmd })
         });
-
-        const data = await res.json();
-        if (res.ok) {
-          alert('✅ 成功: ' + data.response);
-        } else {
-          alert('⚠️ エラー: ' + data.error);
-        }
+        // 通知は表示しないように変更
       } catch (err) {
-        alert('🚫 通信エラー: ' + err.message);
+        console.error('通信エラー:', err);
       }
     }
   </script>
