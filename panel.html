@@ -19,7 +19,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      margin-top: 80px; /* 少し下に移動 */
+      margin-top: 120px; /* 少し下に移動 */
       z-index: 2;
     }
 
@@ -44,9 +44,9 @@
       display: flex;
       justify-content: space-evenly;
       width: 100%;
-      margin-top: 40px;  /* ボタン間隔広め */
-      margin-bottom: 50px; /* ボタン位置を下へ */
-      gap: 2rem; /* ボタン間隔 */
+      margin-top: 40px;
+      margin-bottom: 70px; /* ボタン位置を下へ */
+      gap: 2rem;
     }
 
     .command-button {
@@ -90,6 +90,7 @@
       { label: "オート進行", command: "function fille_brain:auto" },
       { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
+
     const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
