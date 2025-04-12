@@ -19,7 +19,7 @@
       height: 444px;
       background-color: #121c35;
       border-radius: 40px;
-      margin-bottom: 20px;
+      margin-bottom: 80px; /* ← ここで上に持ち上げる */
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
   </style>
@@ -49,7 +49,6 @@
 
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        // ログインしていない場合は index.html にリダイレクト
         window.location.href = "index.html";
       }
     });
