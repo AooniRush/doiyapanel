@@ -87,7 +87,16 @@
       // Firebaseログイン状態確認
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          userNameEl.textContent = user.displayName || user.email || "ユーザー";
+          // displayNameがある場合はそのまま使用
+          let displayName = user.displayName || user.email || "ユーザー";
+          
+          // @マークより前の部分を抽出
+          if (user.email) {
+            const nameBeforeAt = user.email.split('@')[0];
+            userNameEl.textContent = nameBeforeAt;
+          } else {
+            userNameEl.textContent = displayName;
+          }
         } else {
           alert("ログインが必要です。");
           window.location.href = "index.html";
