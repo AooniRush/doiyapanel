@@ -87,10 +87,8 @@
       // Firebaseログイン状態確認
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          // displayNameがある場合はそのまま使用
           let displayName = user.displayName || user.email || "ユーザー";
           
-          // @マークより前の部分を抽出
           if (user.email) {
             const nameBeforeAt = user.email.split('@')[0];
             userNameEl.textContent = nameBeforeAt;
@@ -174,6 +172,35 @@
         } catch (err) {
           console.error("コマンド送信エラー:", err);
         }
+      });
+
+      // 左メニューのボタンにクリックイベントを追加
+      const commandButtons = document.querySelectorAll('.command-button');
+      commandButtons.forEach((button) => {
+        button.addEventListener("click", async (event) => {
+          const command = button.getAttribute("data-command");
+          const url = button.getAttribute("data-url");
+
+          try {
+            // コマンドを送信
+            const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ command })
+            });
+
+            const result = await response.json();
+            console.log(`コマンド結果: ${result}`);
+
+            // ページ遷移
+            window.location.href = url;
+
+          } catch (err) {
+            console.error("コマンド送信エラー:", err);
+          }
+        });
       });
     });
   </script>
