@@ -16,12 +16,12 @@
 
     .container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: flex-end;
       width: 100%;
       max-width: 1920px;
       padding: 0 5%;
-      gap: 20px;
+      gap: 10px; /* 余白を少し追加 */
     }
 
     .bottom-panel {
@@ -34,7 +34,7 @@
     }
 
     .side-panel {
-      width: 352px;
+      width: calc(50% - 477px); /* 中央の図形と同じ高さに合わせて調整 */
       height: 444px; /* 中央の高さに合わせて変更 */
       background-color: #121c35;
       border-radius: 20px;
