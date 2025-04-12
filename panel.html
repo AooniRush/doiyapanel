@@ -35,9 +35,9 @@
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 9999px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.75rem;
+      border-radius: 5px; /* 角を少しだけ丸めた */
+      padding: 1rem 2rem; /* ボタンを大きく */
+      font-size: 1rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -56,10 +56,10 @@
 
     <!-- 中央の図形とボタン -->
     <div class="main-box flex flex-col items-center justify-end">
-      <div id="buttons-container" class="flex mb-6 space-x-12"></div>
+      <div id="buttons-container" class="flex mb-6 space-x-16"></div> <!-- ボタン間隔を広げた -->
     </div>
 
-    <!-- 右の図形 -->
+    <!-- 右の図形 (増殖を修正)-->
     <div class="side-box flex-1 max-w-[460px] side-right"></div>
   </div>
 
