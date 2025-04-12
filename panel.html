@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>モード変更画面</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <style>
     body {
       margin: 0;
@@ -13,32 +15,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       height: 100vh;
+      padding-top: 80px;
     }
 
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 10px;
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
     }
 
     .greeting {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 16px;
-      color: white;
+      font-size: 18px;
     }
 
-    .logout-btn {
-      position: absolute;
-      top: 10px;
-      right: 20px;
+    .logout-button {
       background-color: #e74c3c;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     .grid {
@@ -76,49 +83,51 @@
       display: none;
     }
   </style>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAXKTCZT9fE9slC1fbZk36OoyHt_4LkN28",
-      authDomain: "aoonigokkoauth.firebaseapp.com",
-      projectId: "aoonigokkoauth",
-      storageBucket: "aoonigokkoauth.firebasestorage.app",
-      messagingSenderId: "460906205657",
-      appId: "1:460906205657:web:3d0237157dadebddd549c8"
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
     };
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // ログイン状態の確認
+    const ref = document.referrer;
+    const fromIndex = sessionStorage.getItem("fromIndex");
+    if (!(ref.includes("index.html") || fromIndex === "true")) {
+      window.location.href = "index.html";
+    }
+
     auth.onAuthStateChanged(user => {
       if (user) {
-        const greetingMessage = `おはようございます、${user.displayName || 'ユーザーさん'}`;
-        document.getElementById('greeting').textContent = greetingMessage;
+        const name = user.email.split("@")[0];
+        const hour = new Date().getHours();
+        let greeting = "こんにちは";
+
+        if (hour < 12) greeting = "おはようございます";
+        else if (hour >= 18) greeting = "こんばんは";
+
+        document.getElementById("greeting").textContent = `${greeting、${name}さん`;
       } else {
-        window.location.href = 'index.html'; // ログインしていなければ、ログイン画面にリダイレクト
+        window.location.href = "index.html";
       }
     });
 
     function logout() {
       auth.signOut().then(() => {
-        window.location.href = 'index.html'; // ログアウト後、index.htmlにリダイレクト
+        sessionStorage.removeItem("fromIndex");
+        window.location.href = "index.html";
       });
-    }
-
-    // リファラーチェック
-    const allowedReferrer = "https://aoonirush.github.io/index.html";
-    if (document.referrer !== allowedReferrer) {
-      window.location.href = "index.html";
     }
 
     function sendCommand(command, redirectTo) {
       fetch("https://mc.enderserver.jp:40015/execute-command", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ command })
       })
       .then(res => {
@@ -145,8 +154,10 @@
   </script>
 </head>
 <body>
-  <div class="greeting" id="greeting">おはようございます、ゲストさん</div>
-  <button class="logout-btn" onclick="logout()">ログアウト</button>
+  <div class="top-bar">
+    <div id="greeting" class="greeting">読み込み中...</div>
+    <button class="logout-button" onclick="logout()">ログアウト</button>
+  </div>
 
   <h1>モード変更画面</h1>
   <div class="grid">
