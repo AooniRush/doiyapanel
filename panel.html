@@ -149,3 +149,60 @@
   </div>
 
   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // ページ遷移時にpanel.htmlから来たかどうかを確認
+    if (!sessionStorage.getItem("fromPanel")) {
+      location.href = "index.html";  // panel.html以外からアクセスした場合はindex.htmlに戻す
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const username = user.email.split('@')[0];
+        const now = new Date();
+        const hour = now.getHours();
+        let greeting = "こんにちは";
+
+        if (hour < 11) greeting = "おはようございます";
+        else if (hour >= 17) greeting = "こんばんは";
+
+        document.getElementById("greeting").textContent = `${greeting}、${username}さん`;
+      } else {
+        location.href = "index.html";
+      }
+    });
+
+    function logout() {
+      signOut(auth).then(() => {
+        location.href = "index.html";
+      });
+    }
+
+    function sendCommand(command, redirectPage) {
+      fetch("https://mc.enderserver.jp:40017/command", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command })
+      }).then(() => {
+        if (redirectPage) {
+          sessionStorage.setItem("fromPanel", "true");
+          window.location.href = redirectPage;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
