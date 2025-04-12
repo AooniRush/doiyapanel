@@ -186,18 +186,32 @@
       });
     }
 
-    function sendCommand(command, redirectPage) {
-      fetch("https://mc.enderserver.jp:40017/command", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command })
-      }).then(() => {
-        if (redirectPage) {
-          sessionStorage.setItem("fromPanel", "true");
-          window.location.href = redirectPage;
-        }
-      });
+function sendCommand(command, redirectPage) {
+  fetch("https://mc.enderserver.jp:40017/command", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ command })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("サーバーエラー: " + response.status);
     }
+    return response.json();
+  })
+  .then(data => {
+    console.log("成功:", data);
+    if (redirectPage) {
+      sessionStorage.setItem("fromPanel", "true");
+      window.location.href = redirectPage;
+    }
+  })
+  .catch(error => {
+    console.error("コマンド送信エラー:", error);
+    alert("コマンドの送信に失敗しました。コンソールを確認してください。");
+  });
+}
 
     // panel.html にアクセスした場合、リファラーチェックを行う
     if (!document.referrer.includes("index.html") && !sessionStorage.getItem("fromIndex")) {
