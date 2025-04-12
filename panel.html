@@ -86,11 +86,10 @@
 
   <script>
     const buttons = [
-      { label: "開始", command: "function fille_brain:start" },
-      { label: "終了", command: "function fille_brain:stop" },
-      { label: "再読み込み", command: "function fille_brain:reload" }
+      { label: "ログインカウント", command: "login" },
+      { label: "オート進行", command: "function fille_brain:auto" },
+      { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
-
     const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
