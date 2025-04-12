@@ -6,70 +6,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(to right, #2c3e50, #3498db);
       color: white;
-      position: relative;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
     }
 
-    .header {
+    h1 {
+      margin: 20px 0;
+    }
+
+    .command-row {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 20px;
-    }
-
-    .mode-info {
-      font-size: 24px;
-    }
-
-    .back-button {
-      background-color: #e74c3c;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .back-button:hover {
-      background-color: #c0392b;
-    }
-
-    .command-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px;
-      margin-top: 10px;
-      align-items: flex-start;
-    }
-
-    .command-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+      margin-top: 30px;
     }
 
     .command-box {
       background-color: rgba(255, 255, 255, 0.1);
       border: 2px solid white;
       border-radius: 12px;
-      padding: 20px;
+      padding: 20px 30px;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
       transition: 0.2s ease;
+      min-width: 120px;
     }
 
     .command-box:hover {
       background-color: rgba(255, 255, 255, 0.3);
       transform: scale(1.05);
+    }
+
+    .clean-sequence {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .arrow {
+      font-size: 20px;
     }
 
     .toast {
@@ -82,10 +65,12 @@
       border-radius: 8px;
       display: none;
     }
+
   </style>
   <script>
-    if (!sessionStorage.getItem('fromPanel')) {
-      window.location.href = 'panel.html';
+    const allowedReferrer = "https://aoonirush.github.io/panel.html";
+    if (document.referrer !== allowedReferrer) {
+      window.location.href = "index.html";
     }
 
     function sendCommand(command) {
@@ -117,27 +102,20 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <div class="mode-info">モード: だつ<br>説明: 脱出を目指すモードです。</div>
-    <button class="back-button" onclick="location.href='panel.html'">パネルに戻る</button>
+  <h1>だつモード</h1>
+
+  <!-- 横並びのモード選択 -->
+  <div class="command-row">
+    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
+    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_20')">20人モード</div>
+    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_60')">60人モード</div>
   </div>
 
-  <div class="command-grid">
-    <!-- 左列（スタート + 館の清掃） -->
-    <div class="command-column">
-      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
-      <div class="command-box" onclick="sendCommand('function fille:start/select_field_clear')">館の清掃</div>
-    </div>
-
-    <!-- 中列 -->
-    <div class="command-column">
-      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">リセット</div>
-    </div>
-
-    <!-- 右列 -->
-    <div class="command-column">
-      <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">ヘルプ</div>
-    </div>
+  <!-- 館の清掃 → 配置 -->
+  <div class="clean-sequence">
+    <div class="command-box" onclick="sendCommand('function fille:start/select_field_clear')">館の清掃</div>
+    <div class="arrow">→</div>
+    <div class="command-box" onclick="sendCommand('function fille:start/select_field_array')">①配置 【必須】</div>
   </div>
 
   <div class="toast"></div>
