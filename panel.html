@@ -15,9 +15,9 @@
     }
 
     .bottom-panel {
-      width: 1070px;
-      height: 594px;
-      background-color: #121c35; /* 変更した濃い紫系 */
+      width: 954px;
+      height: 444px;
+      background-color: #121c35;
       border-radius: 40px;
       margin-bottom: 20px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
@@ -26,5 +26,33 @@
 </head>
 <body>
   <div class="bottom-panel"></div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // ログインしていない場合は index.html にリダイレクト
+        window.location.href = "index.html";
+      }
+    });
+  </script>
 </body>
 </html>
