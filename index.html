@@ -2,19 +2,19 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>ログイン</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="styles.css" />
+  <title>ログイン</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAXKTCZT9fE9slC1fbZk36OoyHt_4LkN28",
-      authDomain: "aoonigokkoauth.firebaseapp.com",
-      projectId: "aoonigokkoauth",
-      storageBucket: "aoonigokkoauth.appspot.com",
-      messagingSenderId: "460906205657",
-      appId: "1:460906205657:web:3d0237157dadebddd549c8"
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -22,12 +22,13 @@
 
     function login(event) {
       event.preventDefault();
+
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
       auth.signInWithEmailAndPassword(email, password)
         .then(() => {
-          sessionStorage.setItem("fromIndex", "true");
+          sessionStorage.setItem("fromIndex", "true"); // 遷移元フラグ
           window.location.href = 'panel.html';
         })
         .catch(error => {
