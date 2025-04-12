@@ -62,6 +62,10 @@
     <!-- 右の図形 -->
     <div class="side-box flex-1 max-w-[460px] side-right"></div>
   </div>
+
+    <!-- 右の図形 -->
+    <div class="side-box flex-1 max-w-[460px] side-right"></div>
+  </div>
   
   <script>
     const buttons = [
@@ -70,7 +74,7 @@
       { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
 
-   const container = document.getElementById('buttons-container');
+    const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
       const buttonEl = document.createElement('button');
@@ -89,7 +93,6 @@
           },
           body: JSON.stringify({ command: cmd })
         });
-        // 通知は表示しないように変更
       } catch (err) {
         console.error('通信エラー:', err);
       }
