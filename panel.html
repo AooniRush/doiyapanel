@@ -1,182 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>青鬼ごっこ - パネル</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <meta charset="UTF-8">
+  <title>図形のみパネル</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* 基本設定 */
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f2f2f2;
       margin: 0;
-      padding: 0;
-    }
-    .container {
+      background-color: #293252;
       display: flex;
+      justify-content: center;
+      align-items: flex-end;
       height: 100vh;
     }
 
-    /* 左サイドバー */
-    .sidebar {
-      width: 300px;
-      background-color: #2C3E50;
-      padding: 20px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .sidebar h2 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    .sidebar .menu-button {
-      background-color: #34495E;
-      color: #ecf0f1;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 5px;
-      text-align: left;
-      font-size: 18px;
-      transition: background-color 0.3s ease;
-    }
-    .sidebar .menu-button:hover {
-      background-color: #1ABC9C;
-    }
-
-    /* 中央コンテンツ */
-    .main-content {
-      flex: 1;
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 10px;
-      margin-left: 20px;
-      margin-right: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .main-content h1 {
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #2C3E50;
-    }
-    .game-buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .game-button {
-      background-color: #2ECC71;
-      color: #fff;
-      padding: 20px;
-      width: 30%;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .game-button:hover {
-      background-color: #27AE60;
-    }
-
-    /* 右パネル */
-    .right-panel {
-      width: 300px;
-      background-color: #ecf0f1;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .right-panel h2 {
-      font-size: 20px;
-      font-weight: bold;
+    .bottom-panel {
+      width: 1070px;
+      height: 594px;
+      background-color: #5c2d91; /* 紫の濃い感じ */
+      border-radius: 40px;
       margin-bottom: 20px;
-      color: #2C3E50;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
-    .right-panel p {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #34495E;
-    }
-    .logout-button {
-      background-color: #E74C3C;
-      color: #fff;
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .logout-button:hover {
-      background-color: #C0392B;
-    }
-
   </style>
 </head>
 <body>
-
-  <div class="container">
-
-    <!-- 左サイドバー -->
-    <div class="sidebar">
-      <h2>メニュー</h2>
-      <button class="menu-button" onclick="location.href='datsu.html'">だつ</button>
-      <button class="menu-button" onclick="location.href='gokko.html'">ごっこ</button>
-      <button class="menu-button" onclick="location.href='gokko2.html'">ごっこ2</button>
-      <button class="menu-button" onclick="location.href='hako.html'">はこ</button>
-      <button class="menu-button" onclick="location.href='ito.html'">いと</button>
-      <button class="menu-button" onclick="location.href='jinro.html'">ごっこ人狼</button>
-      <button class="menu-button" onclick="location.href='kakure.html'">かくれ</button>
-      <button class="menu-button" onclick="location.href='kojo.html'">攻城戦</button>
-      <button class="menu-button" onclick="location.href='tohyo.html'">投票</button>
-    </div>
-
-    <!-- 中央コンテンツ -->
-    <div class="main-content">
-      <h1>ゲームモード選択</h1>
-      <div class="game-buttons">
-        <div class="game-button" onclick="location.href='game1.html'">ゲーム 1</div>
-        <div class="game-button" onclick="location.href='game2.html'">ゲーム 2</div>
-        <div class="game-button" onclick="location.href='game3.html'">ゲーム 3</div>
-      </div>
-    </div>
-
-    <!-- 右パネル -->
-    <div class="right-panel">
-      <h2>ユーザー情報</h2>
-      <p>こんにちは、<span id="userName">ゲスト</span>さん</p>
-      <button class="logout-button" id="logoutBtn">ログアウト</button>
-    </div>
-
-  </div>
-
-  <script>
-    // ユーザー名を表示
-    const userNameEl = document.getElementById("userName");
-    // ダミーのユーザー名設定（実際にはFirebaseから取得する）
-    userNameEl.textContent = "ユーザー名";
-
-    // ログアウト処理
-    document.getElementById("logoutBtn").addEventListener("click", function() {
-      alert("ログアウトしました");
-      window.location.href = "index.html";  // ログアウト後のリダイレクト先
-    });
-  </script>
-
+  <div class="bottom-panel"></div>
 </body>
 </html>
