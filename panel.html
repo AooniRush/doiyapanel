@@ -38,8 +38,31 @@
       border-radius: 9999px;
       padding: 0.25rem 0.75rem;
       font-size: 0.75rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
 
+    .command-button:hover {
+      background-color: #5a7156;
+      color: white;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center h-screen">
 
+  <div class="flex items-end justify-center w-full max-w-screen-xl px-2 space-x-2">
+    <!-- 左の図形 -->
+    <div class="side-box flex-1 max-w-[460px] side-left"></div>
+
+    <!-- 中央の図形とボタン -->
+    <div class="main-box flex flex-col items-center justify-end">
+      <div id="buttons-container" class="flex mb-6 space-x-12"></div>
+    </div>
+
+    <!-- 右の図形 -->
+    <div class="side-box flex-1 max-w-[460px] side-right"></div>
+  </div>
+  
   <script>
     const buttons = [
       { label: "ログインカウント", command: "login" },
