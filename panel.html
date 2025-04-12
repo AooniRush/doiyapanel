@@ -3,224 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ゲームモードページ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: #1e2235;
-      color: white;
-      display: flex;
-      height: 100vh;
-    }
-
-    .sidebar {
-      width: 80px;
-      background-color: #2a2e42;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
-      border-right: 2px solid #444;
-    }
-
-    .sidebar img {
-      width: 40px;
-      margin: 10px 0;
-    }
-
-    .main {
-      flex-grow: 1;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .top-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .greeting {
-      font-size: 1.2em;
-    }
-
-    .logout-button {
-      background-color: #c0392b;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .center-box {
-      background-color: #2a2e42;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .mode-boxes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .mode-box {
-      background-color: #1c2e4a;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      border: 1px solid #55b3f3;
-    }
-
-    .mode-box:hover {
-      background-color: #37698a;
-    }
-
-    .right-panel {
-      width: 250px;
-      background-color: #2a2e42;
-      padding: 20px;
-      border-left: 2px solid #444;
-    }
-
-    .admin-box {
-      margin-bottom: 15px;
-      background-color: #1c2e4a;
-      padding: 10px;
-      border-radius: 6px;
-      text-align: center;
-      cursor: pointer;
-      border: 1px solid #55b3f3;
-    }
-
-    .admin-box:hover {
-      background-color: #37698a;
-    }
-  </style>
+  <title>パネル</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body>
-  <!-- 左サイドバー -->
-  <div class="sidebar">
-    <img src="https://img.icons8.com/ios-filled/50/home.png" alt="home" />
-    <img src="https://img.icons8.com/ios-filled/50/settings.png" alt="settings" />
-    <img src="https://img.icons8.com/ios-filled/50/info.png" alt="info" />
-  </div>
-
-  <!-- 中央メイン -->
-  <div class="main">
-    <div class="top-info">
-      <div class="greeting" id="greeting">こんにちは、さん</div>
-      <button class="logout-button" onclick="logout()">ログアウト</button>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex h-screen">
+    <!-- 左メニュー -->
+    <div class="w-1/5 bg-white p-4 shadow-xl">
+      <h2 class="text-xl font-bold mb-4">モード一覧</h2>
+      <ul class="space-y-2">
+        <li><button onclick="sendCommand('function fille_brain:aooni_datsu', 'datsu.html')" class="w-full bg-blue-500 text-white p-2 rounded">だつ</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')" class="w-full bg-blue-500 text-white p-2 rounded">ごっこ</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')" class="w-full bg-blue-500 text-white p-2 rounded">ごっこ2</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')" class="w-full bg-blue-500 text-white p-2 rounded">はこ</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_ito', 'ito.html')" class="w-full bg-blue-500 text-white p-2 rounded">いと</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_jinro', 'jinro.html')" class="w-full bg-blue-500 text-white p-2 rounded">ごっこ人狼</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_kaku', 'kakure.html')" class="w-full bg-blue-500 text-white p-2 rounded">かくれ</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')" class="w-full bg-blue-500 text-white p-2 rounded">攻城戦</button></li>
+        <li><button onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')" class="w-full bg-blue-500 text-white p-2 rounded">投票</button></li>
+      </ul>
     </div>
 
-    <div class="center-box">
-      <h2>現在 10 戦目（開戦前）</h2>
-      <div>ゲームモード</div>
-      <div class="mode-boxes">
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datsu', 'datsu.html')">だつ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')">ごっこ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')">ごっこ2</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')">はこ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_ito', 'ito.html')">いと</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_jinro', 'jinro.html')">ごっこ人狼</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kaku', 'kakure.html')">かくれ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
-      </div>
+    <!-- 中央画面 -->
+    <div class="flex-1 p-8">
+      <h1 class="text-3xl font-bold mb-4">ようこそ <span id="username" class="text-blue-600">ユーザー</span> さん！</h1>
+      <p>ゲームモードを選んでください。</p>
+    </div>
+
+    <!-- 右側：ログアウトなど -->
+    <div class="w-1/6 p-4 bg-white shadow-xl flex flex-col items-end justify-between">
+      <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">ログアウト</button>
     </div>
   </div>
 
-  <!-- 右パネル -->
-  <div class="right-panel">
-    <div class="admin-box">メンバーモード</div>
-    <div class="admin-box">オートキック</div>
-    <div class="admin-box">ログインカウント</div>
-    <div class="admin-box">ping</div>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
+  <script>
+    // Firebase設定
     const firebaseConfig = {
-      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
-      authDomain: "doiyaauth.firebaseapp.com",
-      projectId: "doiyaauth",
-      storageBucket: "doiyaauth.firebasestorage.app",
-      messagingSenderId: "532075858481",
-      appId: "1:532075858481:web:9158401dc4953446d82310",
+      apiKey: "YOUR_API_KEY",
+      authDomain: "aoonigokkoauth.firebaseapp.com",
+      projectId: "aoonigokkoauth",
     };
+    firebase.initializeApp(firebaseConfig);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    // リファラーとセッションチェック（index.html or sessionStorage）
+    const ref = document.referrer;
+    const sessionCheck = sessionStorage.getItem("fromIndex");
+    if (!ref.includes("index.html") && !sessionCheck) {
+      alert("不正なアクセスです。ログインページからアクセスしてください。");
+      window.location.href = "index.html";
+    }
 
-    onAuthStateChanged(auth, (user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const username = user.email.split('@')[0];
-        const now = new Date();
-        const hour = now.getHours();
-        let greeting = "こんにちは";
-
-        if (hour < 11) greeting = "おはようございます";
-        else if (hour >= 17) greeting = "こんばんは";
-
-        document.getElementById("greeting").textContent = `${greeting}、${username}さん`;
+        document.getElementById("username").textContent = user.displayName || user.email || "ユーザー";
       } else {
-        location.href = "index.html";
+        window.location.href = "index.html";
       }
     });
 
     function logout() {
-      signOut(auth).then(() => {
-        location.href = "index.html";
+      firebase.auth().signOut().then(() => {
+        sessionStorage.removeItem("fromIndex");
+        window.location.href = "index.html";
       });
     }
 
-function sendCommand(command, redirectPage) {
-  fetch("https://mc.enderserver.jp:40017/command", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ command })
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("サーバーエラー: " + response.status);
+    function sendCommand(command, redirectPage) {
+      fetch("https://mc.enderserver.jp:40017/execute-command", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ command })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("サーバーエラー");
+        return response.json();
+      })
+      .then(data => {
+        console.log("✅ コマンド送信成功:", data);
+        if (redirectPage) {
+          sessionStorage.setItem("fromPanel", "true");
+          window.location.href = redirectPage;
+        }
+      })
+      .catch(error => {
+        console.error("❌ コマンド送信失敗:", error);
+        alert("コマンドの送信に失敗しました。サーバーの状態を確認してください。");
+      });
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log("成功:", data);
-    if (redirectPage) {
-      sessionStorage.setItem("fromPanel", "true");
-      window.location.href = redirectPage;
-    }
-  })
-  .catch(error => {
-    console.error("コマンド送信エラー:", error);
-    alert("コマンドの送信に失敗しました。コンソールを確認してください。");
-  });
-}
-
-    // panel.html にアクセスした場合、リファラーチェックを行う
-    if (!document.referrer.includes("index.html") && !sessionStorage.getItem("fromIndex")) {
-      // index.htmlから遷移していない場合、強制的にトップページに戻す
-      window.location.href = "index.html";
-    }
-
-    // sessionStorage からフラグを削除しておく
-    sessionStorage.removeItem("fromIndex");
   </script>
 </body>
 </html>
