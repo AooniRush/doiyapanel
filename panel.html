@@ -19,7 +19,6 @@
 
     .side-box {
       background-color: #121c35;
-      width: 320px;
       height: 444px;
       border-radius: 30px;
     }
@@ -29,8 +28,8 @@
       color: #5a7156;
       background-color: transparent;
       border-radius: 9999px;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -43,24 +42,24 @@
 </head>
 <body class="flex items-center justify-center h-screen">
 
-  <div class="flex items-start space-x-4">
+  <div class="flex items-start justify-center w-full max-w-screen-xl px-4 space-x-4">
     <!-- 左の図形 -->
-    <div class="side-box"></div>
+    <div class="side-box flex-1 max-w-[300px]"></div>
 
     <!-- 中央の図形とボタン -->
-    <div class="flex flex-col items-center main-box">
-      <div id="buttons-container" class="flex mt-auto mb-8 space-x-6"></div>
+    <div class="main-box flex flex-col items-center justify-end">
+      <div id="buttons-container" class="flex mb-8 space-x-10"></div>
     </div>
 
     <!-- 右の図形 -->
-    <div class="side-box"></div>
+    <div class="side-box flex-1 max-w-[300px]"></div>
   </div>
 
   <script>
     const buttons = [
       { label: "ログインカウント", command: "login" },
       { label: "オート進行", command: "function fille_brain:auto" },
-      { label: "/kick all", command: "kickall" }
+      { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
 
     const container = document.getElementById('buttons-container');
