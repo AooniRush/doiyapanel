@@ -3,206 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ゲームモード一覧 | 青鬼ごっこパネル</title>
+  <title>青鬼ごっこ - パネル</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    .sidebar {
+      background-color: #1E3A8A; /* 左サイドバーの色 */
+      color: white;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .menu-button {
+      background-color: #2563EB; /* ボタンの色 */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .menu-button:hover {
+      background-color: #1D4ED8; /* ホバー時の色 */
+    }
+    .main-content {
+      padding: 20px;
+      width: 70%; /* 中央コンテンツの幅 */
+    }
+    .main-content h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+    .game-button {
+      background-color: #38B2AC; /* ゲームボタンの色 */
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      width: 100%;
+      margin-bottom: 15px;
+      transition: background-color 0.3s;
+    }
+    .game-button:hover {
+      background-color: #319795; /* ホバー時の色 */
+    }
+    .right-panel {
+      background-color: white;
+      padding: 20px;
+      border-left: 2px solid #E2E8F0;
+      width: 25%;
+    }
+    .right-panel h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .logout-button {
+      background-color: #F56565;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .logout-button:hover {
+      background-color: #E53E3E;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100">
 
   <div class="flex h-screen">
+
     <!-- 左メニュー -->
-    <aside class="w-64 bg-blue-900 text-white p-4">
-      <h2 class="text-2xl font-bold mb-6">メニュー</h2>
-      <ul class="space-y-3">
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_datsu" data-url="datsu.html">だつ</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_gokko" data-url="gokko.html">ごっこ</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_gokko2" data-url="gokko2.html">ごっこ2</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_hako" data-url="hako.html">はこ</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_ito" data-url="ito.html">いと</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_jinro" data-url="jinro.html">ごっこ人狼</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_kaku" data-url="kakure.html">かくれ</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_kojosen" data-url="kojo.html">攻城戦</button></li>
-        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_vote" data-url="tohyo.html">投票</button></li>
-      </ul>
+    <aside class="sidebar w-64">
+      <h2>メニュー</h2>
+      <button class="menu-button" onclick="location.href='datsu.html'">だつ</button>
+      <button class="menu-button" onclick="location.href='gokko.html'">ごっこ</button>
+      <button class="menu-button" onclick="location.href='gokko2.html'">ごっこ2</button>
+      <button class="menu-button" onclick="location.href='hako.html'">はこ</button>
+      <button class="menu-button" onclick="location.href='ito.html'">いと</button>
+      <button class="menu-button" onclick="location.href='jinro.html'">ごっこ人狼</button>
+      <button class="menu-button" onclick="location.href='kakure.html'">かくれ</button>
+      <button class="menu-button" onclick="location.href='kojo.html'">攻城戦</button>
+      <button class="menu-button" onclick="location.href='tohyo.html'">投票</button>
     </aside>
 
     <!-- 中央コンテンツ -->
-    <main class="flex-1 p-6">
-      <h1 class="text-3xl font-bold mb-4">ゲームモード選択</h1>
-      <p class="text-gray-700">モードを選択してください。</p>
+    <main class="main-content flex-1">
+      <h1>モード選択</h1>
+      
+      <!-- 3つのゲーム選択ボタン -->
+      <div class="flex flex-col space-y-4">
+        <button class="game-button" onclick="location.href='game1.html'">ゲーム 1</button>
+        <button class="game-button" onclick="location.href='game2.html'">ゲーム 2</button>
+        <button class="game-button" onclick="location.href='game3.html'">ゲーム 3</button>
+      </div>
     </main>
 
-    <!-- 右のユーザー情報と管理 -->
-    <aside class="w-64 bg-white p-4 border-l border-gray-200">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">ユーザー</h2>
-        <button id="logoutBtn" class="text-red-500 hover:underline">ログアウト</button>
-      </div>
-      <p class="text-gray-800 font-medium">こんにちは、<span id="userName">ゲスト</span>さん</p>
+    <!-- 右パネル -->
+    <aside class="right-panel">
+      <div>
+        <h2>ユーザー情報</h2>
+        <p>こんにちは、<span id="userName">ゲスト</span>さん</p>
 
-      <!-- コマンド実行ボックス 1 -->
-      <div id="commandBox" class="mt-6 mb-4">
-        <h3 class="text-lg font-semibold mb-2">ログインカウント</h3>
-        <button id="executeVoteCommand" class="w-full bg-blue-500 text-white p-2 rounded-lg">実行</button>
-      </div>
-
-      <!-- コマンド実行ボックス 2 -->
-      <div id="commandBox2" class="mt-6 mb-4">
-        <h3 class="text-lg font-semibold mb-2">メンテモード</h3>
-        <button id="executeAnotherCommand" class="w-full bg-green-500 text-white p-2 rounded-lg">オン</button>
-      </div>
-
-      <!-- コマンド実行ボックス 3 -->
-      <div id="commandBox3" class="mt-6 mb-4">
-        <h3 class="text-lg font-semibold mb-2">サーバー再起動</h3>
-        <button id="executeFinalCommand" class="w-full bg-red-500 text-white p-2 rounded-lg">実行</button>
+        <button class="logout-button" id="logoutBtn">ログアウト</button>
       </div>
     </aside>
+
   </div>
 
-  <!-- Firebaseスクリプト -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  <script>
+    // ユーザー名の表示部分
+    const userNameEl = document.getElementById("userName");
+    // ダミーのユーザー名設定（実際にはFirebaseから取得する）
+    userNameEl.textContent = "ユーザー名"; 
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
-      authDomain: "doiyaauth.firebaseapp.com",
-      projectId: "doiyaauth",
-      storageBucket: "doiyaauth.firebasestorage.app",
-      messagingSenderId: "532075858481",
-      appId: "1:532075858481:web:9158401dc4953446d82310",
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const userNameEl = document.getElementById("userName");
-      const logoutBtn = document.getElementById("logoutBtn");
-
-      // Firebaseログイン状態確認
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          let displayName = user.displayName || user.email || "ユーザー";
-          
-          if (user.email) {
-            const nameBeforeAt = user.email.split('@')[0];
-            userNameEl.textContent = nameBeforeAt;
-          } else {
-            userNameEl.textContent = displayName;
-          }
-        } else {
-          alert("ログインが必要です。");
-          window.location.href = "index.html";
-        }
-      });
-
-      // ログアウト処理
-      logoutBtn.addEventListener("click", () => {
-        signOut(auth).then(() => {
-          window.location.href = "index.html";
-        });
-      });
-
-      // ボタンクリック時にコマンド送信
-      const executeVoteCommand = document.getElementById("executeVoteCommand");
-      executeVoteCommand.addEventListener("click", async (event) => {
-        event.preventDefault(); // ページ遷移を防止
-        const command = "login";
-
-        try {
-          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ command })
-          });
-
-          const result = await response.json();
-          console.log("コマンド結果:", result);
-        } catch (err) {
-          console.error("コマンド送信エラー:", err);
-        }
-      });
-
-      // 別のコマンド実行ボタン
-      const executeAnotherCommand = document.getElementById("executeAnotherCommand");
-      executeAnotherCommand.addEventListener("click", async (event) => {
-        event.preventDefault(); // ページ遷移を防止
-        const command = "whitelist on"; // 例として、別のコマンド
-
-        try {
-          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ command })
-          });
-
-          const result = await response.json();
-          console.log("別のコマンド結果:", result);
-        } catch (err) {
-          console.error("コマンド送信エラー:", err);
-        }
-      });
-
-      // 最終コマンド実行ボタン
-      const executeFinalCommand = document.getElementById("executeFinalCommand");
-      executeFinalCommand.addEventListener("click", async (event) => {
-        event.preventDefault(); // ページ遷移を防止
-        const command = "restart"; // 例として、最終コマンド
-
-        try {
-          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ command })
-          });
-
-          const result = await response.json();
-          console.log("最終コマンド結果:", result);
-        } catch (err) {
-          console.error("コマンド送信エラー:", err);
-        }
-      });
-
-      // 左メニューのボタンにクリックイベントを追加
-      const commandButtons = document.querySelectorAll('.command-button');
-      commandButtons.forEach((button) => {
-        button.addEventListener("click", async (event) => {
-          const command = button.getAttribute("data-command");
-          const url = button.getAttribute("data-url");
-
-          try {
-            // コマンドを送信
-            const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({ command })
-            });
-
-            const result = await response.json();
-            console.log(`コマンド結果: ${result}`);
-
-            // ページ遷移
-            window.location.href = url;
-
-          } catch (err) {
-            console.error("コマンド送信エラー:", err);
-          }
-        });
-      });
+    // ログアウト処理
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+      alert("ログアウトしました");
+      window.location.href = "index.html";  // ログアウト後のリダイレクト先
     });
   </script>
+
 </body>
 </html>
