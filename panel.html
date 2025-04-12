@@ -10,7 +10,6 @@
       background-color: #293252;
     }
 
-    /* 中央の図形 */
     .main-box {
       background-color: #121c35;
       width: 954px;
@@ -20,47 +19,31 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      position: relative;
       z-index: 2;
-      margin-top: 30px;
     }
 
-    /* 左右の図形 */
     .side-box {
       background-color: #121c35;
-      height: 100%;
+      width: 320px;
+      height: 444px;
       border-radius: 30px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 1;
     }
 
-    .left-box {
-      left: 0;
-      width: 30%; /* 左側の幅を30%に調整 */
-    }
-
-    .right-box {
-      right: 0;
-      width: 30%; /* 右側の幅を30%に調整 */
-    }
-
-    /* 横並びのボタン */
     .button-container {
       display: flex;
       justify-content: space-evenly;
       width: 100%;
       margin-top: 20px;
+      margin-bottom: 40px;
     }
 
     .command-button {
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 5px;
-      padding: 1.5rem 3rem; /* ボタンの大きさ */
-      font-size: 1.25rem; /* フォントサイズ */
+      border-radius: 8px;
+      padding: 1.25rem 2rem;
+      font-size: 1.125rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -73,13 +56,20 @@
 </head>
 <body class="flex items-center justify-center h-screen">
 
-  <!-- 左右の図形 -->
-  <div class="left-box side-box"></div>
-  <div class="right-box side-box"></div>
+  <!-- メインレイアウト -->
+  <div class="flex items-center justify-between w-[90%] max-w-[1600px]">
 
-  <!-- 中央の図形とボタン -->
-  <div class="main-box">
-    <div class="button-container" id="buttons-container"></div>
+    <!-- 左図形 -->
+    <div class="side-box"></div>
+
+    <!-- 中央の図形とボタン -->
+    <div class="main-box">
+      <div class="button-container" id="buttons-container"></div>
+    </div>
+
+    <!-- 右図形 -->
+    <div class="side-box"></div>
+
   </div>
   
   <script>
@@ -103,9 +93,7 @@
       try {
         await fetch('https://mc.enderserver.jp:40017/execute-command', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ command: cmd })
         });
       } catch (err) {
