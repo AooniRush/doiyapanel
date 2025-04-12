@@ -1,123 +1,83 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>だつモード</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #2c3e50, #3498db);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      height: 100vh;
-      margin: 0;
-    }
-
-    h1 {
-      margin: 20px 0;
-    }
-
-    .command-row {
-      display: flex;
-      gap: 15px;
-      margin-top: 30px;
-    }
-
-    .command-box {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 2px solid white;
-      border-radius: 12px;
-      padding: 20px 30px;
-      text-align: center;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.2s ease;
-      min-width: 120px;
-    }
-
-    .command-box:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-
-    .clean-sequence {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 30px;
-    }
-
-    .arrow {
-      font-size: 20px;
-    }
-
-    .toast {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #27ae60;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      display: none;
-    }
-
-  </style>
-  <script>
-    const allowedReferrer = "https://aoonirush.github.io/panel.html";
-    if (document.referrer !== allowedReferrer) {
-      window.location.href = "index.html";
-    }
-
-    function sendCommand(command) {
-      fetch("https://mc.enderserver.jp:40017/execute-command", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ command })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("送信失敗");
-        showToast("コマンドが実行されました");
-      })
-      .catch(() => {
-        showToast("コマンド送信に失敗しました", true);
-      });
-    }
-
-    function showToast(message, isError = false) {
-      const toast = document.querySelector(".toast");
-      toast.textContent = message;
-      toast.style.backgroundColor = isError ? "#e74c3c" : "#27ae60";
-      toast.style.display = "block";
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 3000);
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>青脱 | 青鬼ごっこ</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body>
-  <h1>だつモード</h1>
+<body class="bg-gray-100 font-sans">
 
-  <!-- 横並びのモード選択 -->
-  <div class="command-row">
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_10')">10人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_20')">20人モード</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_mode_60')">60人モード</div>
+  <div class="flex h-screen">
+
+    <!-- 左メニュー -->
+    <aside class="w-64 bg-blue-900 text-white p-4">
+      <h2 class="text-2xl font-bold mb-6">メニュー</h2>
+      <ul class="space-y-3">
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_datsu" data-url="datsu.html">だつ</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_gokko" data-url="gokko.html">ごっこ</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_gokko2" data-url="gokko2.html">ごっこ2</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_hako" data-url="hako.html">はこ</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_ito" data-url="ito.html">いと</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_jinro" data-url="jinro.html">ごっこ人狼</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_kaku" data-url="kakure.html">かくれ</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_kojosen" data-url="kojo.html">攻城戦</button></li>
+        <li><button class="command-button w-full text-left" data-command="function fille_brain:aooni_vote" data-url="tohyo.html">投票</button></li>
+      </ul>
+    </aside>
+
+    <!-- 右のユーザー情報と管理 -->
+    <aside class="w-64 bg-white p-4 border-l border-gray-200">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">ユーザー</h2>
+        <button id="logoutBtn" class="text-red-500 hover:underline">ログアウト</button>
+      </div>
+      <p class="text-gray-800 font-medium">こんにちは、<span id="userName">ゲスト</span>さん</p>
+    </aside>
   </div>
 
-  <!-- 館の清掃 → 配置 -->
-  <div class="clean-sequence">
-    <div class="command-box" onclick="sendCommand('function fille:start/select_field_clear')">館の清掃</div>
-    <div class="arrow">→</div>
-    <div class="command-box" onclick="sendCommand('function fille:start/select_field_array')">①配置 【必須】</div>
-  </div>
+  <!-- Firebaseスクリプト -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-  <div class="toast"></div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const userNameEl = document.getElementById("userName");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      // Firebaseログイン状態確認
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userNameEl.textContent = user.displayName || user.email || "ユーザー";
+        } else {
+          alert("ログインが必要です。");
+          window.location.href = "index.html";
+        }
+      });
+
+      // ログアウト処理
+      logoutBtn.addEventListener("click", () => {
+        signOut(auth).then(() => {
+          window.location.href = "index.html";
+        });
+      });
+    });
+  </script>
 </body>
 </html>
