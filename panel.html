@@ -19,8 +19,16 @@
 
     .side-box {
       background-color: #121c35;
-      height: 444px;
+      height: 544px; /* 中央より100px高く */
       border-radius: 30px;
+    }
+
+    .side-left {
+      transform: translateX(-25%) scaleX(1.2);
+    }
+
+    .side-right {
+      transform: translateX(25%) scaleX(1.2);
     }
 
     .command-button {
@@ -42,17 +50,17 @@
 </head>
 <body class="flex items-center justify-center h-screen">
 
-  <div class="flex items-start justify-center w-full max-w-screen-xl px-2 space-x-2">
-    <!-- 左の図形 -->
-    <div class="side-box flex-1 max-w-[420px]"></div>
+  <div class="flex items-end justify-center w-full max-w-screen-xl px-2 space-x-2">
+    <!-- 左の図形（外側へ広げ、下へ伸ばす） -->
+    <div class="side-box flex-1 max-w-[420px] side-left"></div>
 
     <!-- 中央の図形とボタン -->
     <div class="main-box flex flex-col items-center justify-end">
       <div id="buttons-container" class="flex mb-6 space-x-6"></div>
     </div>
 
-    <!-- 右の図形 -->
-    <div class="side-box flex-1 max-w-[420px]"></div>
+    <!-- 右の図形（外側へ広げ、下へ伸ばす） -->
+    <div class="side-box flex-1 max-w-[420px] side-right"></div>
   </div>
 
   <script>
@@ -62,7 +70,7 @@
       { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
     ];
 
-const container = document.getElementById('buttons-container');
+    const container = document.getElementById('buttons-container');
 
     buttons.forEach(btn => {
       const buttonEl = document.createElement('button');
