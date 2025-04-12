@@ -106,18 +106,6 @@
     .admin-box:hover {
       background-color: #37698a;
     }
-
-    #time-display {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 16px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      z-index: 1000;
-    }
   </style>
 </head>
 <body>
@@ -160,71 +148,4 @@
     <div class="admin-box">ping</div>
   </div>
 
-  <div id="time-display"></div>
-
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "aoonigokkoauth.firebaseapp.com",
-      projectId: "aoonigokkoauth",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const username = user.email.split('@')[0];
-        const now = new Date();
-        const hour = now.getHours();
-        let greeting = "こんにちは";
-
-        if (hour < 11) greeting = "おはようございます";
-        else if (hour >= 17) greeting = "こんばんは";
-
-        document.getElementById("greeting").textContent = `${greeting}、${username}さん`;
-      } else {
-        location.href = "index.html";
-      }
-    });
-
-    function logout() {
-      signOut(auth).then(() => {
-        location.href = "index.html";
-      });
-    }
-
-    function sendCommand(command, redirectPage) {
-      fetch("https://mc.enderserver.jp:40017/command", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command })
-      }).then(() => {
-        if (redirectPage) {
-          sessionStorage.setItem("fromPanel", "true");
-          window.location.href = redirectPage;
-        }
-      });
-    }
-
-    // 現在時刻を表示する関数
-    function updateTime() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const timeString = `${hours}:${minutes}:${seconds}`;
-
-      document.getElementById('time-display').textContent = timeString;
-    }
-
-    // 時間を1秒ごとに更新
-    setInterval(updateTime, 1000);
-    updateTime();  // ページ読み込み時にも即時表示
-  </script>
-</body>
-</html>
