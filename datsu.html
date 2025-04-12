@@ -2,14 +2,13 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>青脱 | 青鬼ごっこ</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>青脱 | 青鬼ごっこパネル</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-100 font-sans">
 
   <div class="flex h-screen">
-
     <!-- 左メニュー -->
     <aside class="w-64 bg-blue-900 text-white p-4">
       <h2 class="text-2xl font-bold mb-6">メニュー</h2>
@@ -33,6 +32,24 @@
         <button id="logoutBtn" class="text-red-500 hover:underline">ログアウト</button>
       </div>
       <p class="text-gray-800 font-medium">こんにちは、<span id="userName">ゲスト</span>さん</p>
+
+      <!-- コマンド実行ボックス 1 -->
+      <div id="commandBox" class="mt-6 mb-4">
+        <h3 class="text-lg font-semibold mb-2">ログインカウント</h3>
+        <button id="executeVoteCommand" class="w-full bg-blue-500 text-white p-2 rounded-lg">実行</button>
+      </div>
+
+      <!-- コマンド実行ボックス 2 -->
+      <div id="commandBox2" class="mt-6 mb-4">
+        <h3 class="text-lg font-semibold mb-2">メンテモード</h3>
+        <button id="executeAnotherCommand" class="w-full bg-green-500 text-white p-2 rounded-lg">オン</button>
+      </div>
+
+      <!-- コマンド実行ボックス 3 -->
+      <div id="commandBox3" class="mt-6 mb-4">
+        <h3 class="text-lg font-semibold mb-2">サーバー再起動</h3>
+        <button id="executeFinalCommand" class="w-full bg-red-500 text-white p-2 rounded-lg">実行</button>
+      </div>
     </aside>
   </div>
 
@@ -64,7 +81,16 @@
       // Firebaseログイン状態確認
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          userNameEl.textContent = user.displayName || user.email || "ユーザー";
+          // displayNameがある場合はそのまま使用
+          let displayName = user.displayName || user.email || "ユーザー";
+          
+          // @マークより前の部分を抽出
+          if (user.email) {
+            const nameBeforeAt = user.email.split('@')[0];
+            userNameEl.textContent = nameBeforeAt;
+          } else {
+            userNameEl.textContent = displayName;
+          }
         } else {
           alert("ログインが必要です。");
           window.location.href = "index.html";
@@ -76,6 +102,72 @@
         signOut(auth).then(() => {
           window.location.href = "index.html";
         });
+      });
+
+      // ボタンクリック時にコマンド送信
+      const executeVoteCommand = document.getElementById("executeVoteCommand");
+      executeVoteCommand.addEventListener("click", async (event) => {
+        event.preventDefault(); // ページ遷移を防止
+        const command = "login";
+
+        try {
+          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ command })
+          });
+
+          const result = await response.json();
+          console.log("コマンド結果:", result);
+        } catch (err) {
+          console.error("コマンド送信エラー:", err);
+        }
+      });
+
+      // 別のコマンド実行ボタン
+      const executeAnotherCommand = document.getElementById("executeAnotherCommand");
+      executeAnotherCommand.addEventListener("click", async (event) => {
+        event.preventDefault(); // ページ遷移を防止
+        const command = "whitelist on"; // 例として、別のコマンド
+
+        try {
+          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ command })
+          });
+
+          const result = await response.json();
+          console.log("別のコマンド結果:", result);
+        } catch (err) {
+          console.error("コマンド送信エラー:", err);
+        }
+      });
+
+      // 最終コマンド実行ボタン
+      const executeFinalCommand = document.getElementById("executeFinalCommand");
+      executeFinalCommand.addEventListener("click", async (event) => {
+        event.preventDefault(); // ページ遷移を防止
+        const command = "restart"; // 例として、最終コマンド
+
+        try {
+          const response = await fetch("https://mc.enderserver.jp:40017/execute-command", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ command })
+          });
+
+          const result = await response.json();
+          console.log("最終コマンド結果:", result);
+        } catch (err) {
+          console.error("コマンド送信エラー:", err);
+        }
       });
     });
   </script>
