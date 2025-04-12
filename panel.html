@@ -1,203 +1,132 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>モード変更画面</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゲームモードパネル</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: #1e2235;
-      color: white;
+      padding: 0;
       display: flex;
       height: 100vh;
-    }
-
-    .sidebar {
-      width: 80px;
-      background-color: #2a2e42;
-      display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
-      border-right: 2px solid #444;
     }
 
-    .sidebar img {
-      width: 40px;
-      margin: 10px 0;
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
     }
 
-    .main {
+    #content {
+      display: flex;
+      flex-grow: 1;
+    }
+
+    #menu {
+      width: 200px;
+      background-color: #f4f4f4;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    #modes {
       flex-grow: 1;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      box-sizing: border-box;
     }
 
-    .top-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .greeting {
-      font-size: 1.2em;
-    }
-
-    .logout-button {
-      background-color: #c0392b;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .center-box {
-      background-color: #2a2e42;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .mode-boxes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .mode-box {
-      background-color: #1c2e4a;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      border: 1px solid #55b3f3;
-    }
-
-    .mode-box:hover {
-      background-color: #37698a;
-    }
-
-    .right-panel {
-      width: 250px;
-      background-color: #2a2e42;
-      padding: 20px;
-      border-left: 2px solid #444;
-    }
-
-    .admin-box {
-      margin-bottom: 15px;
-      background-color: #1c2e4a;
+    button {
+      display: block;
+      margin: 10px 0;
       padding: 10px;
-      border-radius: 6px;
-      text-align: center;
+      font-size: 16px;
+      width: 100%;
       cursor: pointer;
-      border: 1px solid #55b3f3;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
     }
 
-    .admin-box:hover {
-      background-color: #37698a;
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #time-display {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 16px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
-  <!-- 左サイドバー -->
-  <div class="sidebar">
-    <img src="https://img.icons8.com/ios-filled/50/home.png" alt="home" />
-    <img src="https://img.icons8.com/ios-filled/50/settings.png" alt="settings" />
-    <img src="https://img.icons8.com/ios-filled/50/info.png" alt="info" />
+
+<header>
+  <h1>ゲームモードパネル</h1>
+</header>
+
+<div id="content">
+  <div id="menu">
+    <!-- メニュー項目（ここに必要なリンクやアイコンなどを追加） -->
   </div>
 
-  <!-- 中央メイン -->
-  <div class="main">
-    <div class="top-info">
-      <div class="greeting" id="greeting">こんにちは、さん</div>
-      <button class="logout-button" onclick="logout()">ログアウト</button>
-    </div>
-
-    <div class="center-box">
-      <h2>現在 10 戦目（開戦前）</h2>
-      <div>ゲームモード</div>
-      <div class="mode-boxes">
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_datsu', 'datsu.html')">だつ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko', 'gokko.html')">ごっこ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_gokko2', 'gokko2.html')">ごっこ2</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_hako', 'hako.html')">はこ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_ito', 'ito.html')">いと</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_jinro', 'jinro.html')">ごっこ人狼</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kaku', 'kakure.html')">かくれ</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_kojosen', 'kojo.html')">攻城戦</div>
-        <div class="mode-box" onclick="sendCommand('function fille_brain:aooni_vote', 'tohyo.html')">投票</div>
-      </div>
-    </div>
+  <div id="modes">
+    <button id="datsu" onclick="sendCommand('aooni_datsu', 'datsu.html')">だつ</button>
+    <button id="gokko" onclick="sendCommand('aooni_gokko', 'gokko.html')">ごっこ</button>
+    <button id="gokko2" onclick="sendCommand('aooni_gokko2', 'gokko2.html')">ごっこ2</button>
+    <button id="hako" onclick="sendCommand('aooni_hako', 'hako.html')">はこ</button>
+    <button id="ito" onclick="sendCommand('aooni_ito', 'ito.html')">いと</button>
+    <button id="jinro" onclick="sendCommand('aooni_jinro', 'jinro.html')">ごっこ人狼</button>
+    <button id="kaku" onclick="sendCommand('aooni_kaku', 'kakure.html')">かくれ</button>
+    <button id="kojo" onclick="sendCommand('aooni_kojosen', 'kojo.html')">攻城戦</button>
+    <button id="tohyo" onclick="sendCommand('aooni_vote', 'tohyo.html')">投票</button>
   </div>
+</div>
 
-  <!-- 右パネル -->
-  <div class="right-panel">
-    <div class="admin-box">メンバーモード</div>
-    <div class="admin-box">オートキック</div>
-    <div class="admin-box">ログインカウント</div>
-    <div class="admin-box">ping</div>
-  </div>
+<div id="time-display"></div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+<script>
+  // 現在時刻を表示する関数
+  function updateTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
-      authDomain: "doiyaauth.firebaseapp.com",
-      projectId: "doiyaauth",
-      storageBucket: "doiyaauth.firebasestorage.app",
-      messagingSenderId: "532075858481",
-      appId: "1:532075858481:web:9158401dc4953446d82310",
-    };
+    document.getElementById('time-display').textContent = timeString;
+  }
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  // 時間を1秒ごとに更新
+  setInterval(updateTime, 1000);
+  updateTime();  // ページ読み込み時にも即時表示
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const username = user.email.split('@')[0];
-        const now = new Date();
-        const hour = now.getHours();
-        let greeting = "こんにちは";
-
-        if (hour < 11) greeting = "おはようございます";
-        else if (hour >= 17) greeting = "こんばんは";
-
-        document.getElementById("greeting").textContent = `${greeting}、${username}さん`;
-      } else {
-        location.href = "index.html";
+  // コマンド送信とページ遷移を行う関数
+  function sendCommand(command, redirectPage) {
+    fetch("https://mc.enderserver.jp:40017/command", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command })
+    }).then(() => {
+      if (redirectPage) {
+        sessionStorage.setItem("fromPanel", "true");
+        window.location.href = redirectPage;
       }
+    }).catch((error) => {
+      console.error("コマンドの送信に失敗しました:", error);
     });
+  }
+</script>
 
-    function logout() {
-      signOut(auth).then(() => {
-        location.href = "index.html";
-      });
-    }
-
-    function sendCommand(command, redirectPage) {
-      fetch("https://your-server-address/command", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command })
-      }).then(() => {
-        if (redirectPage) {
-          sessionStorage.setItem("fromPanel", "true");
-          window.location.href = redirectPage;
-        }
-      });
-    }
-  </script>
 </body>
 </html>
