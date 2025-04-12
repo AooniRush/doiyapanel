@@ -19,6 +19,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
+      margin-top: 80px; /* 少し下に移動 */
       z-index: 2;
     }
 
@@ -27,7 +28,7 @@
       width: 320px;
       height: calc(100vh - 80px);
       border-radius: 30px;
-      margin-top: 40px; /* ← 下げた */
+      margin-top: 40px;
       margin-bottom: 40px;
     }
 
@@ -43,8 +44,9 @@
       display: flex;
       justify-content: space-evenly;
       width: 100%;
-      margin-top: 20px;
-      margin-bottom: 40px;
+      margin-top: 40px;  /* ボタン間隔広め */
+      margin-bottom: 50px; /* ボタン位置を下へ */
+      gap: 2rem; /* ボタン間隔 */
     }
 
     .command-button {
@@ -52,8 +54,8 @@
       color: #5a7156;
       background-color: transparent;
       border-radius: 12px;
-      padding: 0.5rem 1rem; /* ← 小さく */
-      font-size: 1rem; /* ← 小さく */
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
       font-weight: bold;
       transition: all 0.3s ease;
     }
@@ -84,9 +86,9 @@
 
   <script>
     const buttons = [
-      { label: "ログインカウント", command: "login" },
-      { label: "オート進行", command: "function fille_brain:auto" },
-      { label: "/kick all", command: "kick @a[tag=!op] [終了検知]ゲームが終了しました" }
+      { label: "開始", command: "function fille_brain:start" },
+      { label: "終了", command: "function fille_brain:stop" },
+      { label: "再読み込み", command: "function fille_brain:reload" }
     ];
 
     const container = document.getElementById('buttons-container');
