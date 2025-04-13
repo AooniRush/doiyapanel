@@ -127,9 +127,9 @@
     <div class="side-box right-box">
       <div class="admin-button-container">
         <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
-        <button class="command-button" onclick="sendCommand('say ログインカウント')">ログインカウント</button>
-        <button class="command-button" onclick="sendCommand('say オート進行')">オート進行</button>
-        <button class="command-button" onclick="sendCommand('kick @a')">/kick all</button>
+        <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
+        <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
+        <button class="command-button" onclick="sendCommand('kick @a[tag=!op] [終了検知]ゲームが終了しました')">/kick all</button>
       </div>
     </div>
     <div class="center-box"></div>
@@ -168,7 +168,7 @@
         console.log("ログイン済み: ", user.email);
       } else {
         console.log("未ログイン");
-        // location.href = "/login.html"; // ログインページにリダイレクトさせたい場合はコメントアウトを外す
+        location.href = "/index.html"; // ログインページにリダイレクトさせたい場合はコメントアウトを外す
       }
     });
 
