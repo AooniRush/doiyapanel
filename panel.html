@@ -56,7 +56,7 @@
 
     .mode-button-container {
       position: absolute;
-      top: 210px;
+      top: 200px;
       left: 50%;
       transform: translateX(-50%);
       display: grid;
@@ -66,17 +66,19 @@
       z-index: 3;
     }
 
-    .mode-button-container > .title {
-      grid-column: 1 / -1;
-      text-align: center;
+    .title {
+      position: absolute;
+      top: 170px;
+      left: 50%;
+      transform: translateX(-50%);
       color: white;
       font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      z-index: 3;
     }
 
     .button-container {
       position: absolute;
-      top: 580px;
+      top: 420px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -114,9 +116,11 @@
     <div class="side-box right-box"></div>
     <div class="center-box"></div>
 
-    <!-- ゲームモードボタン -->
+    <!-- タイトル -->
+    <div class="title">ゲームモード</div>
+
+    <!-- 3x3のゲームモードボタン -->
     <div class="mode-button-container">
-      <div class="title">ゲームモード</div>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko2')">ごっこ2</button>
@@ -128,7 +132,7 @@
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_vote')">投票</button>
     </div>
 
-    <!-- 下の3ボタン -->
+    <!-- ログインカウントなどの下部ボタン -->
     <div class="button-container">
       <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
