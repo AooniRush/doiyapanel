@@ -30,7 +30,7 @@
       top: 180px;
       left: 50%;
       transform: translateX(-50%);
-      width: 720px;
+      width: 660px; /* 幅を少し縮小して余白確保 */
       height: 444px;
       background-color: #121c35;
       z-index: 2;
@@ -45,13 +45,13 @@
     }
 
     .left-box {
-      left: 50px; /* 余白を入れました */
-      width: 250px; /* 中央に近づけるため、横幅を調整 */
+      left: 20px; /* 余白を小さく */
+      width: 250px;
     }
 
     .right-box {
-      right: 50px; /* 余白を入れました */
-      width: 250px; /* 中央に近づけるため、横幅を調整 */
+      right: 20px; /* 余白を小さく */
+      width: 250px;
     }
 
     .button-container {
@@ -61,7 +61,7 @@
       transform: translateX(-50%);
       display: flex;
       justify-content: center;
-      gap: 6rem; /* 間隔を広げました */
+      gap: 4rem; /* 少し余白を減らす */
       z-index: 3;
     }
 
@@ -69,8 +69,8 @@
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 5px; /* ボタンを少し四角く */
-      padding: 0.3rem 1rem; /* ボタンを少し小さく */
+      border-radius: 5px;
+      padding: 0.3rem 1rem;
       font-size: 0.85rem;
       font-weight: bold;
       transition: all 0.2s ease;
