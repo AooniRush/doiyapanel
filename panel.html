@@ -67,8 +67,8 @@
 
     .mode-button-container {
       position: absolute;
-      top: 480px;
-      left: 43%;
+      top: 520px;
+      left: 50%;
       transform: translateX(-50%);
       display: grid;
       grid-template-columns: repeat(3, auto);
@@ -79,8 +79,8 @@
 
     .title {
       position: absolute;
-      top: 440px;
-      left: 43%;
+      top: 488px;
+      left: 50.7%;
       transform: translateX(-50%);
       color: white;
       font-size: 1.2rem;
@@ -127,17 +127,17 @@
     <div class="side-box right-box">
       <div class="admin-button-container">
         <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
-        <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
-        <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
-        <button class="command-button" onclick="sendCommand('kick @a[tag=!op] [終了検知]ゲームが終了しました')">/kick all</button>
+        <button class="command-button" onclick="sendCommand('say ログインカウント')">ログインカウント</button>
+        <button class="command-button" onclick="sendCommand('say オート進行')">オート進行</button>
+        <button class="command-button" onclick="sendCommand('kick @a')">/kick all</button>
       </div>
     </div>
     <div class="center-box"></div>
 
-    <!-- タイトル -->
+    <!-- ゲームモード タイトル -->
     <div class="title">ゲームモード</div>
 
-    <!-- ゲームモード 9 ボタン -->
+    <!-- 9つのゲームモードボタン -->
     <div class="mode-button-container">
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
@@ -151,6 +151,7 @@
     </div>
   </div>
 
+  <!-- Firebase 初期化と認証 -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
@@ -164,11 +165,8 @@
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log("ログイン済み: ", user.email);
-      } else {
-        console.log("未ログイン");
-        location.href = "/index.html"; // ログインページにリダイレクトさせたい場合はコメントアウトを外す
+      if (!user) {
+        window.location.href = "/login.html"; // 未ログインならリダイレクト
       }
     });
 
