@@ -38,12 +38,15 @@
 
     .center-button-container {
       position: absolute;
-      top: 260px;
+      top: 290px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      gap: 0.8rem;
       z-index: 3;
+      color: white;
+      font-size: 1.2rem;
     }
 
     .side-box {
@@ -129,6 +132,10 @@
     .command-button:active {
       transform: scale(0.95);
     }
+
+    .arrow {
+      margin: 0 0.3rem;
+    }
   </style>
 </head>
 <body>
@@ -145,13 +152,17 @@
 
     <div class="center-box"></div>
 
-    <!-- 中央図形内の上部ボタン -->
+    <!-- 中央図形内の上部ボタン（矢印付き） -->
     <div class="center-button-container">
-      <button class="command-button" onclick="sendCommand('sub 3')">/sub 3</button>
-      <button class="command-button" onclick="sendCommand('whitelist off')">ホワリスOFF</button>
-      <button class="command-button" onclick="sendCommand('sub 2')">/sub 2</button>
-      <button class="command-button" onclick="sendCommand('sub 1')">/sub 1</button>
-      <button class="command-button" onclick="sendCommand('whitelist on')">ホワリスON</button>
+      <button class="command-button" onclick="sendCommand('/sub 3')">/sub 3</button>
+      <span class="arrow">→</span>
+      <button class="command-button" onclick="sendCommand('scoreboard players set @a[tag=player] whiris 0')">ホワリスOFF</button>
+      <span class="arrow">→</span>
+      <button class="command-button" onclick="sendCommand('/sub 2')">/sub 2</button>
+      <span class="arrow">→</span>
+      <button class="command-button" onclick="sendCommand('/sub 1')">/sub 1</button>
+      <span class="arrow">→</span>
+      <button class="command-button" onclick="sendCommand('scoreboard players set @a[tag=player] whiris 1')">ホワリスON</button>
     </div>
 
     <!-- タイトル -->
