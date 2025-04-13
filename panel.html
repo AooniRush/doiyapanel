@@ -30,7 +30,7 @@
       top: 180px;
       left: 50%;
       transform: translateX(-50%);
-      width: 660px; /* 幅を少し縮小して余白確保 */
+      width: 720px;
       height: 444px;
       background-color: #121c35;
       z-index: 2;
@@ -45,23 +45,36 @@
     }
 
     .left-box {
-      left: 20px; /* 余白を小さく */
+      left: 50px;
       width: 250px;
     }
 
     .right-box {
-      right: 20px; /* 余白を小さく */
+      right: 50px;
       width: 250px;
+    }
+
+    .mode-button-container {
+      position: absolute;
+      top: 440px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 3;
+      width: 80%;
     }
 
     .button-container {
       position: absolute;
-      top: 580px;
+      top: 540px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       justify-content: center;
-      gap: 4rem; /* 少し余白を減らす */
+      gap: 6rem;
       z-index: 3;
     }
 
@@ -94,6 +107,20 @@
     <div class="side-box right-box"></div>
     <div class="center-box"></div>
 
+    <!-- 追加したモード選択ボタン -->
+    <div class="mode-button-container">
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko2')">ごっこ2</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_hako')">はこ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_ito')">いと</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_jinro')">ごっこ人狼</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_kaku')">かくれ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_kojosen')">攻城戦</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_vote')">投票</button>
+    </div>
+
+    <!-- 既存の操作ボタン -->
     <div class="button-container">
       <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
