@@ -139,4 +139,46 @@
 
     <!-- 3x3のゲームモードボタン -->
     <div class="mode-button-container">
-      <button class="
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko2')">ごっこ2</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_hako')">はこ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_ito')">いと</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_jinro')">ごっこ人狼</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_kaku')">かくれ</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_kojosen')">攻城戦</button>
+      <button class="command-button" onclick="sendCommand('function fille_brain:aooni_vote')">投票</button>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth();
+
+    function sendCommand(command) {
+      fetch("https://mc.enderserver.jp:40017/execute-command", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ command })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("コマンド送信成功:", data);
+      })
+      .catch(error => {
+        console.error("コマンド送信失敗:", error);
+      });
+    }
+  </script>
+</body>
+</html>
