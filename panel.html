@@ -52,6 +52,17 @@
     .right-box {
       right: 50px;
       width: 270px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 30px;
+    }
+
+    .admin-button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
     .mode-button-container {
@@ -78,7 +89,7 @@
 
     .button-container {
       position: absolute;
-      top: 460px; /* ← ここを少し下に調整 */
+      top: 460px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -113,7 +124,11 @@
 <body>
   <div class="main-container">
     <div class="side-box left-box"></div>
-    <div class="side-box right-box"></div>
+    <div class="side-box right-box">
+      <div class="admin-button-container">
+        <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
+      </div>
+    </div>
     <div class="center-box"></div>
 
     <!-- タイトル -->
