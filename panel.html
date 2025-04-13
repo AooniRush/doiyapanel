@@ -46,30 +46,37 @@
 
     .left-box {
       left: 50px;
-      width: 250px;
+      width: 270px;
     }
 
     .right-box {
       right: 50px;
-      width: 250px;
+      width: 270px;
     }
 
     .mode-button-container {
       position: absolute;
-      top: 440px;
+      top: 210px;
       left: 50%;
       transform: translateX(-50%);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 1.2rem;
+      text-align: center;
       z-index: 3;
-      width: 80%;
+    }
+
+    .mode-button-container > .title {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
     }
 
     .button-container {
       position: absolute;
-      top: 540px;
+      top: 580px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -82,9 +89,9 @@
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 5px;
-      padding: 0.3rem 1rem;
-      font-size: 0.85rem;
+      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
       font-weight: bold;
       transition: all 0.2s ease;
       cursor: pointer;
@@ -107,8 +114,9 @@
     <div class="side-box right-box"></div>
     <div class="center-box"></div>
 
-    <!-- 追加したモード選択ボタン -->
+    <!-- ゲームモードボタン -->
     <div class="mode-button-container">
+      <div class="title">ゲームモード</div>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko2')">ごっこ2</button>
@@ -120,7 +128,7 @@
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_vote')">投票</button>
     </div>
 
-    <!-- 既存の操作ボタン -->
+    <!-- 下の3ボタン -->
     <div class="button-container">
       <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
