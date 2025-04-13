@@ -33,7 +33,6 @@
       width: 720px;
       height: 444px;
       background-color: #121c35;
-      border-radius: 20px;
       z-index: 2;
     }
 
@@ -42,28 +41,27 @@
       top: 180px;
       height: calc(100% - 220px);
       background-color: #121c35;
-      border-radius: 20px;
       z-index: 1;
     }
 
     .left-box {
-      left: 100px;  /* 中央の図形に寄せる */
-      width: 200px; /* 横幅を少し縮小 */
+      left: 100px;
+      width: 200px;
     }
 
     .right-box {
-      right: 100px; /* 中央の図形に寄せる */
-      width: 200px; /* 横幅を少し縮小 */
+      right: 100px;
+      width: 200px;
     }
 
     .button-container {
       position: absolute;
-      top: 580px;  /* ボタンを少し上に移動 */
+      top: 580px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       justify-content: center;
-      gap: 4rem;
+      gap: 6rem; /* 間隔を広げました */
       z-index: 3;
     }
 
@@ -71,9 +69,9 @@
       border: 2px solid #5a7156;
       color: #5a7156;
       background-color: transparent;
-      border-radius: 10px;
-      padding: 0.4rem 1.4rem;
-      font-size: 0.95rem;
+      border-radius: 5px; /* ボタンを少し四角く */
+      padding: 0.3rem 1rem; /* ボタンを少し小さく */
+      font-size: 0.85rem;
       font-weight: bold;
       transition: all 0.2s ease;
       cursor: pointer;
