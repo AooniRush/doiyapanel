@@ -38,8 +38,8 @@
 
     .side-box {
       position: absolute;
-      top: 220px;
-      height: calc(100% - 240px);
+      top: 180px;
+      height: 780px;
       background-color: #121c35;
       z-index: 1;
     }
@@ -68,7 +68,7 @@
     .mode-button-container {
       position: absolute;
       top: 480px;
-      left: 38%;
+      left: 43%;
       transform: translateX(-50%);
       display: grid;
       grid-template-columns: repeat(3, auto);
@@ -80,7 +80,7 @@
     .title {
       position: absolute;
       top: 440px;
-      left: 38%;
+      left: 43%;
       transform: translateX(-50%);
       color: white;
       font-size: 1.2rem;
@@ -127,15 +127,17 @@
     <div class="side-box right-box">
       <div class="admin-button-container">
         <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
+        <button class="command-button" onclick="sendCommand('say ログインカウント')">ログインカウント</button>
+        <button class="command-button" onclick="sendCommand('say オート進行')">オート進行</button>
+        <button class="command-button" onclick="sendCommand('kick @a')">/kick all</button>
       </div>
     </div>
-
     <div class="center-box"></div>
 
-    <!-- ゲームモードタイトル -->
+    <!-- タイトル -->
     <div class="title">ゲームモード</div>
 
-    <!-- 9つのゲームモードボタン -->
+    <!-- ゲームモード 9 ボタン -->
     <div class="mode-button-container">
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_datsu')">だつ</button>
       <button class="command-button" onclick="sendCommand('function fille_brain:aooni_gokko')">ごっこ</button>
@@ -150,6 +152,26 @@
   </div>
 
   <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5HuNEqCuHrf1EYsXnhJ9TKc3OgkOJn1Q",
+      authDomain: "doiyaauth.firebaseapp.com",
+      projectId: "doiyaauth",
+      storageBucket: "doiyaauth.firebasestorage.app",
+      messagingSenderId: "532075858481",
+      appId: "1:532075858481:web:9158401dc4953446d82310",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("ログイン済み: ", user.email);
+      } else {
+        console.log("未ログイン");
+        // location.href = "/login.html"; // ログインページにリダイレクトさせたい場合はコメントアウトを外す
+      }
+    });
+
     function sendCommand(command) {
       fetch("https://mc.enderserver.jp:40017/execute-command", {
         method: "POST",
