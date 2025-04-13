@@ -144,9 +144,9 @@
     <div class="side-box right-box">
       <div class="admin-button-container">
         <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
-        <button class="command-button" onclick="sendCommand('say login count')">ログインカウント</button>
-        <button class="command-button" onclick="sendCommand('say auto進行')">オート進行</button>
-        <button class="command-button" onclick="sendCommand('kick @a')">/kick all</button>
+        <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
+        <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
+        <button class="command-button" onclick="sendCommand('kick @a[tag=!op] [終了検知]ゲームが終了しました')">/kick all</button>
       </div>
     </div>
 
@@ -154,15 +154,15 @@
 
     <!-- 中央図形内の上部ボタン（矢印付き） -->
     <div class="center-button-container">
-      <button class="command-button" onclick="sendCommand('/sub 3')">/sub 3</button>
+      <button class="command-button" onclick="sendCommand('sub 3')">/sub 3</button>
       <span class="arrow">→</span>
-      <button class="command-button" onclick="sendCommand('scoreboard players set @a[tag=player] whiris 0')">ホワリスOFF</button>
+      <button class="command-button" onclick="sendCommand('whitelist off')">ホワリスOFF</button>
       <span class="arrow">→</span>
-      <button class="command-button" onclick="sendCommand('/sub 2')">/sub 2</button>
+      <button class="command-button" onclick="sendCommand('sub 2')">/sub 2</button>
       <span class="arrow">→</span>
-      <button class="command-button" onclick="sendCommand('/sub 1')">/sub 1</button>
+      <button class="command-button" onclick="sendCommand('sub 1')">/sub 1</button>
       <span class="arrow">→</span>
-      <button class="command-button" onclick="sendCommand('scoreboard players set @a[tag=player] whiris 1')">ホワリスON</button>
+      <button class="command-button" onclick="sendCommand('whitelist on')">ホワリスON</button>
     </div>
 
     <!-- タイトル -->
