@@ -36,6 +36,16 @@
       z-index: 2;
     }
 
+    .center-button-container {
+      position: absolute;
+      top: 260px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+      z-index: 3;
+    }
+
     .side-box {
       position: absolute;
       top: 180px;
@@ -127,12 +137,22 @@
     <div class="side-box right-box">
       <div class="admin-button-container">
         <button class="command-button" onclick="sendCommand('team join sp @a[tag=op]')">アドミンOP</button>
-        <button class="command-button" onclick="sendCommand('login')">ログインカウント</button>
-        <button class="command-button" onclick="sendCommand('function fille_brain:auto')">オート進行</button>
-        <button class="command-button" onclick="sendCommand('kick @a[tag=!op] [終了検知]ゲームが終了しました')">/kick all</button>
+        <button class="command-button" onclick="sendCommand('say login count')">ログインカウント</button>
+        <button class="command-button" onclick="sendCommand('say auto進行')">オート進行</button>
+        <button class="command-button" onclick="sendCommand('kick @a')">/kick all</button>
       </div>
     </div>
+
     <div class="center-box"></div>
+
+    <!-- 中央図形内の上部ボタン -->
+    <div class="center-button-container">
+      <button class="command-button" onclick="sendCommand('sub 3')">/sub 3</button>
+      <button class="command-button" onclick="sendCommand('whitelist off')">ホワリスOFF</button>
+      <button class="command-button" onclick="sendCommand('sub 2')">/sub 2</button>
+      <button class="command-button" onclick="sendCommand('sub 1')">/sub 1</button>
+      <button class="command-button" onclick="sendCommand('whitelist on')">ホワリスON</button>
+    </div>
 
     <!-- タイトル -->
     <div class="title">ゲームモード</div>
